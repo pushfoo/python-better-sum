@@ -36,7 +36,7 @@ Source = "https://github.com/pushfoo/python-better-sum"
 dev = [
     'mkdocs==1.6.0',
     'mkautodoc==0.2.0',
-    'mkdocstrings[python]==1.10.5'
+    'mkdocstrings[python]==0.25.1'
 ]
 
 [tool.setuptools.packages.find]
