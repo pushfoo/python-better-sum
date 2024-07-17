@@ -1,0 +1,23 @@
+# Read the Docs configuration file for MkDocs projects
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Use lowest Python version supported to ensure things work for users
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.9"
+
+mkdocs:
+  configuration: mkdocs.yml
+
+# Install the dev requirements
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+      - dev
+
