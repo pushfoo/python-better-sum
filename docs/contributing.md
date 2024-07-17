@@ -74,7 +74,7 @@ the following dialects:
 | Markdown Flavor              | Where it's used                                            |
 |------------------------------|------------------------------------------------------------|
 | [Python-Markdown][]          | Docstrings and everything in the repo's `docs` folder      |
-| [GitHub-flavored Markdown][] | Only top-level files in the GitHub repo (README.md, etc) |
+| [GitHub-flavored Markdown][] | Only top-level files in the GitHub repo ([README.md], etc) |
 
 
 
