@@ -1,0 +1,44 @@
+site_name: better-sum
+site_description:  Python's sum, minus ugly annotations and extra arguments.
+docs_dir: docs
+
+theme:
+  name: readthedocs
+
+markdown_extensions:
+  - mkautodoc
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+     pygments_lang_class: true
+
+watch:
+  - better_sum
+
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - API Reference: api.md
+  - Contributing: contributing.md
+  - Why?: why.md
+
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          show_signature_annotations: true
+          options:
+            show_source: false
+            docstring_section_style: list
+            show_root_heading: true
+          import:
+          - https://docs.python.org/3/objects.inv
+          - https://typing-extensions.readthedocs.io/en/latest/objects.inv
+
+

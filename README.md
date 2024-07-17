@@ -1,19 +1,22 @@
 # better-sum
 
 [sum]: https://docs.python.org/3/library/functions.html#sum
+[mkdocs]: https://www.mkdocs.org/
 [typing-extensions]: https://pypi.org/project/typing-extensions/
-[decorator]: docs/usage.md#decorate-a-class
-[registering a start value]: docs/usage.md#set-a-start-value
-[a class attribute]: docs/usage.md#a-class-attribute
+[decorator]: docs/usage.md#decorator
+[class attribute]: docs/usage.md#a-class-attribute
 
-Python's [sum][] function without type inconsistency or an extra argument.
+Python's [sum][], minus ugly annotations and extra arguments.
+
+## Project goals
+
+- [x] Prototype a cleaner [sum][]
+- [x] Try [mkdocs][]
 
 ## Quickstart
 
-1. Create a virtual environment with Python 3.9 or higher
+1. Create a virtual environment with Python 3.9+
 2. `pip install better-sum`
-    * Zero dependencies on Python 3.11+
-    * On Python < 3.11, it installs [typing-extensions][]
 3. Try the code below
 
 ```python
@@ -24,6 +27,7 @@ from better_sum import sum, sum_starts_at_instance
 
 @sum_starts_at_instance(0.0, 0.0)  # 1. Create & store a default instance
 class Vec2(NamedTuple):
+
     x: float = 0.0
     y: float = 0.0
 
@@ -44,6 +48,9 @@ As expected, this will print:
 ```
 Vec(x=3.0, y=3.0)
 ```
+[usage documentation]: https://better-sum.readthedocs.io/en/latest/usage.html
+
+Learn more in the [usage documentation].
 
 ## What's wrong with Python's sum?
 

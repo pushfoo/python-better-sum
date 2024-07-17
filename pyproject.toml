@@ -2,7 +2,7 @@
 name = "better-sum"
 version = "0.1.0"
 readme = "README.md"
-description = "Per-type defaults for Python's sum function"
+description = "Python's sum, minus ugly annotations and extra arguments."
 authors = [
     {name="pushfoo"}
 ]
@@ -27,17 +27,16 @@ classifiers=[
 ]
 
 [project.urls]
-Homepage = "https://github.com/pushfoo/python-better-sums"
-# Documentation = "https://better-sum.readthedocs.io/en/latest"
+Homepage = "https://github.com/pushfoo/python-better-sum"
+Documentation = "https://better-sum.readthedocs.io/en/latest"
 Issues = "https://github.com/pushfoo/python-better-sum/issues"
-Source = "https://github.com/pushfoo/python-better-sum-jigs"
+Source = "https://github.com/pushfoo/python-better-sum"
 
 [project.optional-dependencies]
-#dev = [
-#       'mkdocs',
-#       'mkdocstrings[python]',
-#       'mkautodoc'
-#]
+dev = [
+       'mkdocs',
+       'mkdocstrings[python]'
+]
 
 [tool.setuptools.packages.find]
 include = ["better_sum", "better_sum.*"]

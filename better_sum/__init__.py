@@ -1,12 +1,10 @@
-"""A more type-friendly version of Python's sum.
+"""Python's sum, minus ugly annotations and extra arguments.
 
 Unlike the current built-in version, this one allows per-type default
 start values so you don't have to pollute `__radd__` by accepting `0`.
 """
 from __future__ import annotations
-
 from typing import Type, TypeVar, Iterable, overload, Callable, Final, Protocol
-from typing import TYPE_CHECKING as _TYPE_CHECKING
 
 
 try:
@@ -95,12 +93,14 @@ def sum_starts_at_instance(
     return _registering_func
 
 
-if _TYPE_CHECKING:
-    @overload
-    def sum(__iterable: Iterable[_A]) -> _A | int: ...
+@overload
+def sum(__iterable: Iterable[_A]) -> _A | int:
+    ...
 
-    @overload
-    def sum(__iterable: Iterable[_A], __start: _SumResult) -> _A | _SumResult: ...
+
+@overload
+def sum(__iterable: Iterable[_A], __start: _SumResult) -> _A | _SumResult:
+    ...
 
 
 def sum(__iterable: Iterable[_A], *maybe_start):
@@ -115,7 +115,7 @@ def sum(__iterable: Iterable[_A], *maybe_start):
     Both of these can get tricky, but the decorator is probably easier.
 
     Python's built-in [sum][] usually starts the accumulator value
-    at 0, but you can set it to anything you want with via its optional
+    at `0`, but you can set it to anything you want with via its optional
     positional `start` argument.
 
     Args:
