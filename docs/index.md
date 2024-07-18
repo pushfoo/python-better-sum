@@ -32,7 +32,7 @@ class Vec2(NamedTuple):
     
 
 # You no longer have to add 
-print(sum([Vec2(), (1.0, 1.0]))
+print(sum([Vec2(), (1.0, 1.0)]))
 ```
 
 Output:

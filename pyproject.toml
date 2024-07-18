@@ -3,6 +3,11 @@ name = "better-sum"
 version = "0.1.0"
 readme = "README.md"
 description = "Python's sum, minus ugly annotations and extra arguments."
+keywords = [
+    'sum',  'built-ins', 'replacement',
+    'typing', 'types', 'type-sensitive',
+    'default', 'defaults', 'decorator'
+]
 authors = [
     {name="pushfoo"}
 ]
@@ -14,16 +19,24 @@ dependencies = [
 
 classifiers=[
         "Development Status :: 3 - Alpha",
+
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Topic :: Software Development",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Scientific/Engineering :: Mathematics",
+        "Typing :: Typed",
+
+        "License :: OSI Approved",
+        "License :: OSI Approved :: BSD License",
+
+        "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
-        "Operating System :: OS Independent",
-        "Intended Audience :: Developers",
-        "Topic :: Software Development",
-        "Topic :: Software Development :: Libraries",
 ]
 
 [project.urls]

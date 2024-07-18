@@ -48,7 +48,7 @@ As expected, this will print:
 ```
 Vec(x=3.0, y=3.0)
 ```
-[usage documentation]: https://better-sum.readthedocs.io/en/latest/usage.html
+[usage documentation]: https://better-sum.readthedocs.io/en/latest/usage/
 
 Learn more in the [usage documentation].
 

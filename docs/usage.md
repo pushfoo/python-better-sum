@@ -61,7 +61,7 @@ if __name__ == "__main__":
     item in the iterable.
 
 
-##  Class attribute
+## Class attribute
 
 You can also set a `__sum_start__` class attribute.
 
