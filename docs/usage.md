@@ -7,26 +7,33 @@ There are two ways to set per-type sum start values:
 | [Decorator](#decorator)                                 | Performance         |
 | The `__sum_start__` [class attribute](#class-attribute) | Heritable defaults  |
 
-[MRO Resolution]: https://docs.python.org/3/reference/datamodel.html#resolving-mro-entries
-
 Both keep things simple:
 
 * No [MRO resolution][] is attempted
 * Python's built-in [sum][] is left unchanged
 
+## Fallback Behavior
+
+For backward-compatibility and efficiency, [better_sum.sum][]
+returns `0` when:
+
+* the passed iterable is empty
+* the first element's [type][] has neither:
+    * a default value already registered via [decorator](#decorator)
+    * a [`__sum_start__` class attribute](#class-attribute)
+
 ## Decorator
 
-[GitHub README.md]: https://github.com/pushfoo/python-better-sum
+This is a more elaborate version of the example posted elsewhere.
 
-This is a more elaborate version of [GitHub README.md][]'s example.
+The "proper" approach is to import the following:
 
 | Import                                | Purpose                                     |
 |---------------------------------------|---------------------------------------------|
 | [better_sum.sum_starts_at_instance][] | Create a default instance                   |
 | [better_sum.sum][]                    | Type-aware replacement for Python's [sum][] |
 
-This 
-Since the decorator creates an instance immediately, this is beneficial if creating
+A shorter "improper" approach will be detailed after the code below:
 
 ```python
 from typing import NamedTuple
@@ -49,16 +56,38 @@ class Vec2(NamedTuple):
         other_x, other_y = other
         return self.__class__(self.x + other_x, self.y + other_y)
 
-    
+
 if __name__ == "__main__":
      print("Same type addition  :", sum([Vec2(1.0, 1.0), Vec2(1.0, 1.0)]))
+     # Mixed type addition only works when Vec2 is the starting type
      print("Mixed type addition :", sum([Vec2(1.0, 1.0), (1.0, 1.0)]))
 ```
 
-!!! note
+Since the decorator creates an instance of the wrapped class *immediately*,
+it can be beneficial in the rare cases when you're optimizing Python code:
 
-    The mixed-type addition above only works when a `Vec2` is the first
-    item in the iterable.
+* Controlling bursts of instantiation matters ([pyglet][], [Arcade][], etc)
+* You will be summing a large volume of dynamically generated types
+
+
+### Shorthand Form
+
+For the moment, you can use `sum.starts_at_instance` as shorthand:
+
+```python
+from better_sum import sum
+
+@sum.starts_at_instance()
+class Vec2(NamedTuple):
+    ...
+```
+
+In theory, this is better as a classmethod or something else. However,
+the following are also true about this project:
+
+* it's making a point about type annotations in the standard library
+* this is a `development` branch choice not released on PyPI
+* the project is pre-1.0 and still exploring API design
 
 
 ## Class attribute
@@ -73,9 +102,11 @@ Instead of creating a default instance up front, this approach waits
 until the first time an instance of a type is passed. This may be worse
 when object creation is slow or if you have a lot of summable types.
 
+
 ```python
 from __future__ import annotations
 from better_sum import sum
+
 
 class Vec2:
 
@@ -109,9 +140,4 @@ if __name__ == "__main__":
 
 As above, the mixed-type addition only works when a `Vec2` is the first
 item summed.
-
-## What if no default type is registered?
-
-For backward-compatibility, [better_sum.sum][] will use `0` as the
-default if no default is found for a type.
 

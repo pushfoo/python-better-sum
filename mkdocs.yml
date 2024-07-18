@@ -2,28 +2,30 @@ site_name: better-sum
 site_description:  Python's sum, minus ugly annotations and extra arguments.
 docs_dir: docs
 
+watch:
+  - better_sum
+
+# This theme seems to be the only way to get line numbers working
 theme:
-  name: readthedocs
+  name: material
 
 markdown_extensions:
   - mkautodoc
   - admonition
-  - pymdownx.highlight
-  - pymdownx.superfences
-  - pymdownx.details
-  - pymdownx.superfences
   - pymdownx.highlight:
-     pygments_lang_class: true
-
-watch:
-  - better_sum
+      linenums: true
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.snippets:
+     auto_append:
+      [ 'docs/_common_links.md' ]
 
 nav:
   - Home: index.md
-  - Usage: usage.md
+  - Usage Guide: usage.md
   - API Reference: api.md
   - Contributing: contributing.md
-  - Why?: why.md
+  - Why make this?: why.md
 
 
 plugins:

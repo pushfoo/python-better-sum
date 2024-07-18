@@ -50,6 +50,7 @@ dev = [
     'mkdocs==1.6.0',
     'mkautodoc==0.2.0',
     'mkdocstrings[python]==0.25.1',
+    'pygments==2.18.0',  # Pre-rendered code highlighting
     'pytest==8.2.2'
 ]
 

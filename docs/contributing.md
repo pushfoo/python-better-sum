@@ -22,13 +22,13 @@ After making sure you have Python 3.9+:
 
 1. [Fork and locally clone] the repo
 2. Create and activate a virtual environment
-   * [venv][] is the default
-   * others probably work too
+    * [venv][] is the default
+    * others probably work too
 3. `pip install --upgrade pip`
 4. `pip install -I -e .[dev]`
 6. For users Python's standard [venv][] tool:
-   1. `deactivate` the virtual environment
-   2. reactivate it as described in the [venv][] doc
+    1. `deactivate` the virtual environment
+    2. reactivate it as described in the [venv][] doc
 
 Per the comments on  reactivation seems to be necessary on the default [venv][]. Poetry
 and Rye  are unaffected. To learn more, please see:
@@ -57,7 +57,6 @@ The project aims to be simple.
 [Python-Markdown]: https://python-markdown.github.io/
 [mkdocs/issues/1385]: https://github.com/mkdocs/mkdocs/issues/1385
 [Github-flavored Markdown]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/about-writing-and-formatting-on-github
-[mkdocs]: https://www.mkdocs.org/
 [mkdocstrings]: https://mkdocstrings.github.io/
 
 Documentation dependencies can be added if needed to make the
@@ -65,7 +64,7 @@ doc better.
 
 At the moment, this project uses:
 
-* [mkdocs][]
+* [Mkdocs][]
 * [mkdocstrings][]
 
 This means we aren't using the [original Markdown] from 2004. Instead, we
