@@ -79,12 +79,33 @@ def sum_starts_at_instance(
 ) -> Callable[[Type[_T]], Type[_T]]:
     """Register a type's start value for [sum][better_sum.sum].
 
+    Call this decorator with the same positional and keyword arguments
+    the wrapped class would take if you were creating the default
+    instance directly.
+
+    ```python
+    from sum import sum_starts_at_instance
+
+    @sum_starts_at_instance(1, 2)
+    class MyType:
+        def __init__(a: int, b: int, optional_value: str | None = None):
+            ...
+    ```
+
+    For an in-depth example, please see the [Decorator](usage.md#decorator)
+    example in the [Usage Guide](usage.md)
+
     Args:
         args:
-            Pass arguments as specified in the decorated type's positional arguments.
-            Mutually exclusive with `with_args`
+            The same positional the decorated class would take to create
+            the default instance you want [better_sum.sum] to start at.
         kwargs:
-            Any keyword arguments as specified by the decorated type.
+            The same keyword arguments the decorated class would take to
+            create the default instance you want [better_sum.sum][] to
+            start at.
+
+    Returns:
+        The decorated [type][] without any modifications.
     """
     def _registering_func(wrapped_class: Type[_T]) -> Type[_T]:
         _sum_start_defaults[wrapped_class] = wrapped_class(*args, **kwargs)
@@ -104,24 +125,38 @@ def sum(__iterable: Iterable[_A], __start: _SumResult) -> _A | _SumResult:
 
 
 def sum(__iterable: Iterable[_A], *maybe_start):
-    """A type-aware extension replacing Python's built-in [sum][].
+    """A type-aware yet backward-compatible wrapper for Python's [sum][].
 
-    To use it, first register types by doing one of the following:
+    To register a default sum start value for a type, choose one:
 
-    1. Use the [sum_starts_at_instance][better_sum.sum_starts_at_instance]
-       decorator
-    2. Provide a `__sum_start__` class attribute on a type
+    * Decorate a class with [better_sum.sum_starts_at_instance][]
+      ([full example](usage.md#decorator))
+    * Add a `__sum_start__` class attribute
+      ([full example](usage.md#class-attribute))
 
-    Both of these can get tricky, but the decorator is probably easier.
+    When no start value is passed, this function tries to find one as
+    follows:
 
-    Python's built-in [sum][] usually starts the accumulator value
-    at `0`, but you can set it to anything you want with via its optional
-    positional `start` argument.
+    1. If the iterable is empty, return `0` immediately
+    2. Get the [type][] of the first item
+    3. If there's a default instance for the type, use it as the start
+       value
+    4. If the type has a `__sum_start__` class attribute:
+        1. Initialize a new instance of the type with those arguments
+        2. Set it as the default instance for both this call and future
+          ones
+
+    !!! note
+
+        To avoid premature optimization and unneeded features, this
+        function does not currently attempt to walk the class hierarchy.
 
     Args:
         __iterable: An iterable to sum the contents of.
         __start: An optional overriding start value, just as in the
             original sum.
+    Returns:
+        The sum of the passed items, if any.
     """
     maybe_start_len = len(maybe_start)
     if maybe_start_len == 1:
