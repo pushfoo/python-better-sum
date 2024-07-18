@@ -1,5 +1,10 @@
 # better-sum
 
+[![License](https://img.shields.io/badge/License-BSD_2-Clause.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
+[![Tests](https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml/badge.svg?branch=development)](https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml?branch=development)
+
+
 [sum]: https://docs.python.org/3/library/functions.html#sum
 [mkdocs]: https://www.mkdocs.org/
 [typing-extensions]: https://pypi.org/project/typing-extensions/
@@ -48,9 +53,14 @@ As expected, this will print:
 ```
 Vec(x=3.0, y=3.0)
 ```
-[usage documentation]: https://better-sum.readthedocs.io/en/latest/usage/
+[release]: https://better-sum.readthedocs.io/en/latest/usage/
+[development-branch]: https://better-sum.readthedocs.io/en/development/usage/
+[Contributing]:  https://better-sum.readthedocs.io/en/development/contributing/
 
-Learn more in the [usage documentation].
+## Documentation
+| [`release` branch][release]                                                                                                                           | [`development` branch][development-branch]                                                                                                                                    | [Contributing Guide][Contributing] |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
+ | [![Documentation (main)](https://readthedocs.org/projects/better-sum/badge/?version=latest)](https://better-sum.readthedocs.io/en/latest/?badge=main) | [![Documentation (development)](https://readthedocs.org/projects/better-sum/badge/?version=development)](https://better-sum.readthedocs.io/en/development/?badge=development) | Same as `development`              |
 
 ## What's wrong with Python's sum?
 

@@ -1,15 +1,17 @@
-name: Run pytest matrix
+name: pytest
 run-name: Test ${{ github.head_ref }} invoked by @${{ github.actor }}
 
 
-on:  # Any time it's manual or if we changed package config or code
+on:  # Any time it's manual or changes package config, CI, or code
   workflow_dispatch:
   pull_request:
     paths:
+      - '.github/*'  # Self-test for CI
       - 'pyproject.toml'
       - '**.py'
   push:
     paths:
+      - '.github/*'  # Self-test for CI
       - 'pyproject.toml'
       - '**.py'
 
