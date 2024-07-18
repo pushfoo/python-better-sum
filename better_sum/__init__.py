@@ -17,7 +17,7 @@ except ImportError:
     from typing_extensions import ParamSpec
 
 
-_SUM_SIGNAL_CLASS_ATTR: Final[str] = '__sum_starts__'
+SUM_SIGNAL_CLASS_ATTR: Final[str] = '__sum_start__'
 
 
 # Used to set up the _HasAdd Protocol + a few other annotations below
@@ -65,7 +65,9 @@ class _SumFunc(Protocol[_A, _SumResult]):
 
 
 # Preserve this for later use since we'll need it
-_builtin_sum: Final[_SumFunc] = sum
+# TODO: pyright does NOT like it when Final is around this!
+# may need to be filed as a bug.
+_builtin_sum: _SumFunc = sum
 
 
 # Although pyright claims the line below is meaningless, it
@@ -114,17 +116,7 @@ def sum_starts_at_instance(
     return _registering_func
 
 
-@overload
-def sum(__iterable: Iterable[_A]) -> _A | int:
-    ...
-
-
-@overload
-def sum(__iterable: Iterable[_A], __start: _SumResult) -> _A | _SumResult:
-    ...
-
-
-def sum(__iterable: Iterable[_A], *maybe_start):
+def sum(__iterable: Iterable[_A], /, __start: _SumResult = 0) -> _SumResult:
     """A type-aware yet backward-compatible wrapper for Python's [sum][].
 
     To register a default sum start value for a type, choose one:
@@ -134,8 +126,8 @@ def sum(__iterable: Iterable[_A], *maybe_start):
     * Add a `__sum_start__` class attribute
       ([full example](usage.md#class-attribute))
 
-    When no start value is passed, this function tries to find one as
-    follows:
+    When no start value is passed, this function tries to find one
+    based on the [type][] of the first value of the function.
 
     1. If the iterable is empty, return `0` immediately
     2. Get the [type][] of the first item
@@ -152,34 +144,38 @@ def sum(__iterable: Iterable[_A], *maybe_start):
         function does not currently attempt to walk the class hierarchy.
 
     Args:
-        __iterable: An iterable to sum the contents of.
-        __start: An optional overriding start value, just as in the
+        __iterable (Iterable[_A]): An iterable to sum the contents of.
+        __start (_SumResult): An optional overriding start value, just as in the
             original sum.
     Returns:
         The sum of the passed items, if any.
     """
-    maybe_start_len = len(maybe_start)
-    if maybe_start_len == 1:
-        return _builtin_sum(__iterable, maybe_start[0])
-    elif maybe_start_len > 1:
-        raise TypeError("sum takes an iterable and an optional start argument")
+    iter_wrapper = iter(__iterable)  # Adapt Sequences for next() iteration
+    try:
+        first = next(iter_wrapper)
+        first_type = type(first)
+    except StopIteration:
+        return __start
 
-    nonexhaustion_wrapper = iter(__iterable)
-    first = next(nonexhaustion_wrapper)
-    first_type = type(first)
-
-    # It's been added via the decorator args
+    # A default start was registered via decorator or instantiation
     if first_type in _sum_start_defaults:
-        start: _A = \
+        start: _SumResult = \
             _sum_start_defaults[first_type] + first  # type: ignore
 
-    # The class has a sum signal class attribute
-    elif hasattr(first_type, _SUM_SIGNAL_CLASS_ATTR):
-        start = getattr(first_type, _SUM_SIGNAL_CLASS_ATTR) + first
-
-    # It's an ordinary boring class, so fall back to classic behavior
+    # The class has a __sum_start__ class attribute
+    elif hasattr(first_type, SUM_SIGNAL_CLASS_ATTR):
+        start_args = getattr(first_type, SUM_SIGNAL_CLASS_ATTR)
+        _start_raw = first_type(*start_args)
+        _sum_start_defaults[first_type] = _start_raw
+        start = _start_raw + first
     else:
-        # TODO: check if this is a pyright bug (0 has __add__?)
-        start = 0  # type: ignore
+        start = __start
 
-    return _builtin_sum(nonexhaustion_wrapper, start)
+    return _builtin_sum(iter_wrapper, start)
+
+
+sum.starts_at_instance = sum_starts_at_instance
+"""A shortcut binding of [better_sum.sum_starts_at_instance][].
+
+This is an ugly trick, but it should work.
+"""
