@@ -50,8 +50,8 @@ dev = [
     'mkdocs-material==9.5.29',  # Replaces the commented block below
     # Commented out entries are retained in case we can find
     # another theme with working line numbers and copy buttons
-    #'mkdocs==1.6.0',
-    #'mkautodoc==0.2.0',
+    'mkdocs==1.6.0',
+    'mkautodoc==0.2.0',
     #'pygments==2.18.0',  # Pre-rendered code highlighting
     'mkdocstrings[python]==0.25.1',
     'pytest==8.2.2'
