@@ -1,6 +1,6 @@
 [project]
 name = "better-sum"
-version = "0.1.0"
+version = "0.1.1"
 readme = "README.md"
 description = "Python's sum, minus ugly annotations and extra arguments."
 keywords = [
