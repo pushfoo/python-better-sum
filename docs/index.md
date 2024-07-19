@@ -9,7 +9,7 @@ Python's [sum][], minus [ugly annotations and extra arguments](why.md)
 2. Use it via [decorator][] or `__sum_start__` [class attribute][].
 
 
-```python
+```{.python hl_lines="5 24"}
 from typing import NamedTuple
 from better_sum import sum, sum_starts_at_instance
 
@@ -31,7 +31,8 @@ class Vec2(NamedTuple):
         return self.__class__(self.x + other_x, self.y + other_y)
     
 
-# You no longer have to add 
+# If the type supports adding with tuples, only the
+# very first value has to be of the registered type.
 print(sum([Vec2(), (1.0, 1.0)]))
 ```
 
