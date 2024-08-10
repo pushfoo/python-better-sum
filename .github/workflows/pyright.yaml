@@ -3,7 +3,6 @@ run-name: Run pyright on ${{ github.head_ref }} invoked by @${{ github.actor }}
 
 
 on:
-
   workflow_dispatch:
   pull_request:
     paths:
