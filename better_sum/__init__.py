@@ -4,17 +4,7 @@ Unlike the current built-in version, this one allows per-type default
 start values so you don't have to pollute `__radd__` by accepting `0`.
 """
 from __future__ import annotations
-from typing import Type, TypeVar, Iterable, overload, Callable, Final, Protocol
-
-
-try:
-    from typing_extensions import Self
-except ImportError:
-    from typing_extensions import Self
-try:
-    from typing import ParamSpec
-except ImportError:
-    from typing_extensions import ParamSpec
+from typing import Type, TypeVar, Iterable, overload, Callable, Final, Protocol, Any
 
 
 SUM_SIGNAL_CLASS_ATTR: Final[str] = '__sum_start__'
@@ -35,7 +25,6 @@ class _HasAdd(Protocol[_T_contra, _T_co]):
 # Adding-related types
 _A = TypeVar('_A', bound=_HasAdd)
 _SumResult = TypeVar('_SumResult', bound=_HasAdd)  # Result sum type
-_SummableInstanceParams = ParamSpec('_SummableInstanceParams')
 
 
 class _SumFunc(Protocol[_A, _SumResult]):
@@ -72,12 +61,14 @@ _builtin_sum: _SumFunc = sum
 
 # Although pyright claims the line below is meaningless, it
 # expresses the idea of mapping a type to an instance of it
-_sum_start_defaults: dict[Type[_T], _T] = {}  # type: ignore
+_sum_start_defaults: dict[Type, Any] = {
+    int: 0
+}
 
 
 def sum_starts_at_instance(
-    *args: _SummableInstanceParams.args,  # type: ignore
-    **kwargs: _SummableInstanceParams.kwargs
+    *decorated_args,
+    **decorated_kwargs
 ) -> Callable[[Type[_T]], Type[_T]]:
     """Register a type's start value for [sum][better_sum.sum].
 
@@ -98,10 +89,10 @@ def sum_starts_at_instance(
     example in the [Usage Guide](usage.md)
 
     Args:
-        args:
+        decorated_args:
             The same positional the decorated class would take to create
-            the default instance you want [better_sum.sum] to start at.
-        kwargs:
+            the default instance you want [better_sum.sum][] to start at.
+        decorated_kwargs:
             The same keyword arguments the decorated class would take to
             create the default instance you want [better_sum.sum][] to
             start at.
@@ -110,7 +101,9 @@ def sum_starts_at_instance(
         The decorated [type][] without any modifications.
     """
     def _registering_func(wrapped_class: Type[_T]) -> Type[_T]:
-        _sum_start_defaults[wrapped_class] = wrapped_class(*args, **kwargs)
+        _sum_start_defaults[wrapped_class] = wrapped_class(
+            *decorated_args,
+            **decorated_kwargs)
         return wrapped_class
 
     return _registering_func
@@ -174,7 +167,10 @@ def sum(__iterable: Iterable[_A], /, __start: _SumResult = 0) -> _SumResult:
     return _builtin_sum(iter_wrapper, start)
 
 
-sum.starts_at_instance = sum_starts_at_instance
+# Silence report of spurious issue
+sum.starts_at_instance = (  # type: ignore  # pending OOP or other fix
+    sum_starts_at_instance
+)
 """A shortcut binding of [better_sum.sum_starts_at_instance][].
 
 This is an ugly trick, but it should work.

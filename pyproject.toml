@@ -14,7 +14,8 @@ authors = [
 license = {file = "LICENSE"}
 requires-python = ">=3.9"
 dependencies = [
-        'typing-extensions==4.11.0; python_version < "3.11"',
+        # Currently only used in optional-dependencies.tests below
+        #'typing-extensions==4.11.0; python_version < "3.11"',
 ]
 
 classifiers=[
@@ -46,7 +47,13 @@ Issues = "https://github.com/pushfoo/python-better-sum/issues"
 Source = "https://github.com/pushfoo/python-better-sum"
 
 [project.optional-dependencies]
-dev = [
+tests = [
+    'pytest==8.2.2',
+    'pyright~=1.1.375',
+    'typing_extensions~=4.11.0'
+]
+
+docs = [
     'mkdocs-material==9.5.29',  # Replaces the commented block below
     # Commented out entries are retained in case we can find
     # another theme with working line numbers and copy buttons
@@ -54,7 +61,20 @@ dev = [
     'mkautodoc==0.2.0',
     #'pygments==2.18.0',  # Pre-rendered code highlighting
     'mkdocstrings[python]==0.25.1',
-    'pytest==8.2.2'
+]
+
+
+[tool.pyright]
+include = ["better_sum", "tests/helpers"]
+exclude = [
+    ".venv*",
+    ".scratch",
+    "build",
+    "docs",
+    # The tests helpers should type correctly unless ignored, but the
+    # tests themshelpers aelves may pass incorrect types to test validation
+    "tests/unit",
+    "tests/integration"
 ]
 
 [tool.setuptools.packages.find]

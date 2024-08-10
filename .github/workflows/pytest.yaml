@@ -38,9 +38,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel setuptools
 
-      - name: Perform developer install
+      - name: Install tests-only dependencies
         run: |
-          python -m pip install -I -e .[dev]
+          python -m pip install -I -e .[tests]
 
       - name: Run the pytest command to run all tests
         run: |

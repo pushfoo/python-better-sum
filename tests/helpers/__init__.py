@@ -10,6 +10,8 @@ from __future__ import annotations
 
 from typing import Iterable, Generator, TypeVar, TYPE_CHECKING, overload, cast, NamedTuple
 
+from typing_extensions import Self, override
+
 _T = TypeVar('_T')
 
 
@@ -24,15 +26,18 @@ class SummableTuple(NamedTuple):
     x: float = 0.0
     y: float = 0.0
 
-    def __radd__(self, other: tuple[float, float]) -> SummableTuple:
+    def __radd__(self, other: tuple[float, float]) -> Self:
         """Support for passing ints is no longer needed!"""
         other_x, other_y = other
         return self.__class__(other_x + self.x, other_y + self.y)
 
-    def __add__(self, other: tuple[float, float]) -> SummableTuple:
+    @override
+    def __add__(self, other: tuple[float, float]) -> Self:  # type: ignore[reportIncompatibleMethodOverride]
         other_x, other_y = other
         return self.__class__(other_x + self.x, other_y + self.y)
 
+#s = SummableTuple(1,2)
+#print(s)
 
 class SummableClass:
     """A roughly mutable vector-like class.
@@ -91,7 +96,16 @@ class SummableClass:
         else:
             raise TypeError(f"Can't index by type of {index}")
 
-    def __eq__(self, other: tuple[float, float] | SummableClass) -> bool:
+    if TYPE_CHECKING:
+        @overload
+        def __eq__(self, other: SummableClass) -> bool:
+            ...
+
+        @overload
+        def __eq__(self, other: tuple[float, float]) -> bool:
+            ...
+
+    def __eq__(self, other) -> bool:
         return other[0] == self.x and other[1] == self.y
 
     def __add__(self, other: tuple[float, float] | SummableClass) -> SummableClass:

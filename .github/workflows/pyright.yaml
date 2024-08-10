@@ -1,0 +1,44 @@
+name: pytest
+run-name: Run pyright on ${{ github.head_ref }} invoked by @${{ github.actor }}
+
+
+on:
+
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'better_sum/**'
+      - 'tests/helpers/**'
+      - 'pyproject.toml'
+
+  push:
+    paths:
+      - 'better_sum/**'
+      - 'tests/helpers/**'
+      - 'pyproject.toml'
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+        architecture: [ "x64" ]
+        os: [ 'ubuntu-latest' ]
+
+    runs-on: ${{ matrix.os }}
+    name: Type-check via on pyright (Python ${{ matrix.python-version }} on $${{ matrix.os }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+
+      - name: Install tests-only dependencies
+        run: |
+          python -m pip install -I -e .[tests]
+
+      - name: Run pyright
+        run: |
+          pyright

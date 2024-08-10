@@ -25,7 +25,7 @@ After making sure you have Python 3.9+:
     * [venv][] is the default
     * others probably work too
 3. `pip install --upgrade pip`
-4. `pip install -I -e .[dev]`
+4. `pip install -I -e .[tests,docs]`
 6. For users Python's standard [venv][] tool:
     1. `deactivate` the virtual environment
     2. reactivate it as described in the [venv][] doc
@@ -74,6 +74,3 @@ the following dialects:
 |------------------------------|------------------------------------------------------------|
 | [Python-Markdown][]          | Docstrings and everything in the repo's `docs` folder      |
 | [GitHub-flavored Markdown][] | Only top-level files in the GitHub repo ([README.md], etc) |
-
-
-
