@@ -1,4 +1,4 @@
-name: pytest
+name: pyright
 run-name: Run pyright on ${{ github.head_ref }} invoked by @${{ github.actor }}
 
 
@@ -34,6 +34,10 @@ jobs:
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
+
+      - name: Update pip environment to latest
+        run: |
+          python -m pip install --upgrade pip wheel setuptools
 
       - name: Install tests-only dependencies
         run: |
