@@ -2,8 +2,10 @@
 
 [![License](https://img.shields.io/badge/License-BSD_2-Clause.svg)](https://opensource.org/licenses/BSD-2-Clause)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
-[![Tests](https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml/badge.svg?branch=development)](https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml?branch=development)
-[![pyright](https://github.com/pushfoo/python-better-sum/actions/workflows/pyright.yaml/badge.svg?branch=development)](https://github.com/pushfoo/python-better-sum/actions/workflows/pyright.yaml?branch=development)
+![pytest]
+(https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml/badge.svg?event=push)
+![pyright]
+(https://github.com/pushfoo/python-better-sum/actions/workflows/pyright.yaml/badge.svg?event=push)
 
 
 [sum]: https://docs.python.org/3/library/functions.html#sum
