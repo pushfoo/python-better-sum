@@ -3,6 +3,13 @@
 [decorator]: usage.md#decorator
 [class attribute]: usage.md#class-attribute
 
+[![License](https://img.shields.io/badge/License-BSD_2-Clause.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
+![pytest](https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml/badge.svg?event=push)
+![pyright](https://github.com/pushfoo/python-better-sum/actions/workflows/pyright.yaml/badge.svg?event=push)
+
+
+
 Python's [sum][], minus [ugly annotations and extra arguments](why.md)
 
 1. `pip install better-sum`
