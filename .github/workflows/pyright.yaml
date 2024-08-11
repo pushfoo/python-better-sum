@@ -4,18 +4,11 @@ run-name: Run pyright on ${{ github.head_ref }} invoked by @${{ github.actor }}
 
 on:
   push:
-    branches: [development, latest]
-    paths:
-      - 'better_sum/**'
-      - 'tests/helpers'
-      - 'pyproject.toml'
+    branches:
+      - '*'
   pull_request:
-    branches: [development, latest]
-    paths:
-      - 'better_sum/**'
-      - 'tests/helpers/**'
-      - 'pyproject.toml'
-
+    branches:
+      - '*'
 
 jobs:
   pyright:

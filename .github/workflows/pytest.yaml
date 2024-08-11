@@ -6,18 +6,11 @@ on:  # Any time it's manual or changes package config, CI, or code
   push:
     branches:
       - '*'
-    paths:
-      - '.github/workflows/*.yaml'  # Self-test for CI
-      - 'pyproject.toml'
-      - '**.py'
   pull_request:
-    paths:
-      - '.github/workflows/*.yaml'  # Self-test for CI
-      - 'pyproject.toml'
-      - '**.py'
+    branches:
+      - '*'
 
 jobs:
-
   pytest:
     strategy:
       matrix:
@@ -26,7 +19,7 @@ jobs:
         os: [ 'ubuntu-latest']
 
     runs-on: ${{ matrix.os }}
-    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    name: Run pytest on ${{ matrix.python-version }} on ${{ matrix.os }}
 
     steps:
       - name: Check out code
