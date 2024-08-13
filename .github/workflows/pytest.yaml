@@ -19,7 +19,7 @@ jobs:
         os: [ 'ubuntu-latest']
 
     runs-on: ${{ matrix.os }}
-    name: Run pytest on ${{ matrix.python-version }} on ${{ matrix.os }}
+    name: Run pytest (${{ matrix.python-version }} on ${{ matrix.os }})
 
     steps:
       - name: Check out code
