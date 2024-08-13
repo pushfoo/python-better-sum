@@ -54,8 +54,8 @@ As expected, this will print:
 ```
 Vec(x=3.0, y=3.0)
 ```
-[release]: https://better-sum.readthedocs.io/en/latest/usage/
-[development-branch]: https://better-sum.readthedocs.io/en/development/usage/
+[release]: https://better-sum.readthedocs.io/en/latest/
+[development-branch]: https://better-sum.readthedocs.io/en/development/
 [Contributing]:  https://better-sum.readthedocs.io/en/development/contributing/
 
 ## Documentation
