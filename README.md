@@ -5,7 +5,6 @@
 ![pytest](https://github.com/pushfoo/python-better-sum/actions/workflows/pytest.yaml/badge.svg?event=push)
 ![pyright](https://github.com/pushfoo/python-better-sum/actions/workflows/pyright.yaml/badge.svg?event=push)
 
-
 [sum]: https://docs.python.org/3/library/functions.html#sum
 [mkdocs]: https://www.mkdocs.org/
 [typing-extensions]: https://pypi.org/project/typing-extensions/
