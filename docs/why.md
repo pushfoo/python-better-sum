@@ -40,7 +40,7 @@ is a slow work in progress given that:
 * the project contained circular depdendencies and import tricks which
   annoy type checkers
 * [pyright][] has reported hundreds of errors I've had to fix
-* [mypy][] refuses to support [typing.NamedTuple][]at alll
+* [mypy][] refuses to support [typing.NamedTuple][] at all
 
 For pyglet 2.1's dev previews, [pyglet.math][] was my focus. It contains:
 
