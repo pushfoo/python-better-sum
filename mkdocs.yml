@@ -10,7 +10,6 @@ theme:
   name: material
 
 markdown_extensions:
-  - mkautodoc
   - admonition
   - pymdownx.highlight:
       linenums: true
@@ -30,6 +29,7 @@ nav:
 
 plugins:
   - search
+  - autorefs
   - mkdocstrings:
       default_handler: python
       handlers:
